@@ -4,57 +4,54 @@ const uint16_t PIN = 6;            // データを送信するピン番号
 const uint16_t NUM_PIXELS = 40;    // 制御するLEDの数
 
 SpresenseNeoPixel<PIN, NUM_PIXELS> neopixel;
-//SpresenseNeoPixelライブラリの機能を使う
-//｢PIN｣と｢NUM_PIXELS｣の値を使って、LEDを制御する準備をする
-//制御用の関数は、上記で用意した｢neopixel｣という名前を活用して用いる
 
-// LEDがテープ上を1つ往復するサンプル
-
+//セットアップ
 void setup(){
-  neopixel.clear();
+  neopixel.clear();　//すべてのLEDを消す
 }
 
-void loop(){
-  // ｢⌘+/｣ でコメント状態を切り替えながら動かしてみよう
+//メインループ
+void loop(){　//サンプル関数の実行
   round_trip(); 
   round_trip_doubleight();
   switch_odd_even();
 }
 
-void round_trip(){ //左右を1つの光が往復するサンプル
+//往復点灯
+void round_trip(){ //0からNUMPIXELS-1までroop
   for( int i = 0; i < NUM_PIXELS; i++ ){
-    neopixel.set( i, 150, 80, 30 );   // 赤色に設定
-    neopixel.show();                // LEDに反映
-    delay( 50 );                    // 0.05秒待つ
-    neopixel.clear();               // 光を消す
+    neopixel.set( i, 150, 80, 30 );   
+    neopixel.show();                
+    delay( 50 );                    
+    neopixel.clear();              
   }
   for( int i = 0; i < NUM_PIXELS; i++ ){
-    neopixel.set( NUM_PIXELS - i , 125, 70, 10 );   // 赤色に設定
+    neopixel.set( NUM_PIXELS - i , 125, 70, 10 );   // LEDをオレンジに設定
     neopixel.show();                // LEDに反映
-    delay( 50 );                    // 0.05秒待つ
-    neopixel.clear();               // 光を消す
+    delay( 50 );                    // 0.05秒(50ミリ秒)待つ
+    neopixel.clear();               // LED消灯
   }
 }
 
-void round_trip_doubleight(){ //左右を1つの光が2回ずつ点滅して往復するサンプル
-  for( int i = 0; i < NUM_PIXELS; i++ ){
+void round_trip_doubleight(){ //往復点灯(2回転灯)
+  for( int i = 0; i < NUM_PIXELS; i++ ){　//0からNUM_PIXELS-1までループ
     for( int j = 0; j < 2; j++ ){
-      neopixel.set( i, 20, 100, 50 );   // 赤色に設定
+      neopixel.set( i, 20, 100, 50 );   // ピンク色に設定
+      neopixel.show();                // LEDに設定を反映
+      delay( 50 );                    // 0.05(50ミリ)秒待つ
+      neopixel.clear();               // LEDを消灯
       neopixel.show();                // LEDに反映
-      delay( 50 );                    // 0.05秒待つ
-      neopixel.clear();               // 光を消す設定
-      neopixel.show();                // LEDに反映
-      delay( 50 );                    // 0.05秒待つ
+      delay( 50 );                    // 0.05(50ミリ)秒待つ
     }
   }
   for( int i = 0; i < NUM_PIXELS; i++ ){
     for( int j = 0; j < 2; j++ ){
-      neopixel.set( NUM_PIXELS - i, 0, 100, 30 );   // 赤色に設定
+      neopixel.set( NUM_PIXELS - i, 0, 100, 30 );   // 紫色に設定
       neopixel.show();                // LEDに反映
-      delay( 50 );                    // 0.05秒待つ
+      delay( 50 );                    // 0.05(50ミリ)秒待つ
       neopixel.clear();               // 光を消す設定
-      neopixel.show();                // LEDに反映
-      delay( 50 );                    // 0.05秒待つ
+      neopixel.show();                // LEDに設定を反映
+      delay( 50 );                    // 0.05(50ミリ)秒待つ
     }
   }
 }
@@ -67,13 +64,13 @@ void switch_odd_even(){ //奇数番目と偶数番目が別々の色で交互に
   delay( 200 );                   // 0.2秒待つ
   neopixel.clear();               // 光を消す設定
   neopixel.show();                // 設定を反映
-  delay( 200 );                   // 0.2秒待つ
+  delay( 200 );                   // 0.2(200ミリ)秒待つ
   for( int i = 1; i < NUM_PIXELS - 1; i = i + 2 ){
-    neopixel.set( i, 0, 20, 0 );  // 赤色に設定
+    neopixel.set( i, 0, 20, 0 );  
   }
   neopixel.show();                // 設定を反映
-  delay( 200 );                   // 0.2秒待つ
+  delay( 200 );                   // 0.2(200ミリ)秒待つ
   neopixel.clear();               // 光を消す設定
   neopixel.show();                // 設定を反映
-  delay( 200 );                   // 0.2秒待つ
+  delay( 200 );                   // 0.2(200ミリ)秒待つ
 }
